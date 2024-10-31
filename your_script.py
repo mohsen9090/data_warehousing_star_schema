@@ -14,7 +14,3 @@ def process_data(file_path):
     
     # Return the processed DataFrame
     return data
-
-if __name__ == "__main__":
-    file_path = "sample_data.csv"  # Replace with your actual CSV file path
-    processed_data = process_data(file_path)
