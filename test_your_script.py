@@ -1,10 +1,11 @@
-import unittest from your_script import 
-your_function_name class 
-TestYourScript(unittest.TestCase):
+import unittest
+from your_script import your_function_name  # Update with your function name
+
+class TestYourScript(unittest.TestCase):
     def test_example(self):
-        # مثال از تست یک تابع
-        result = your_function_name() 
-        self.assertEqual(result, 'انتظار 
-        خروجی')
+        # Example test case
+        result = your_function_name()  # Call your function
+        self.assertEqual(result, 'expected_output')  # Check the output
+
 if __name__ == '__main__':
     unittest.main()
