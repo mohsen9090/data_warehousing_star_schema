@@ -1,13 +1,26 @@
 import unittest
+from unittest.mock import patch, MagicMock
+import pandas as pd
 from your_script import process_data
 
 class TestYourScript(unittest.TestCase):
-    def test_example(self):
-        # Example test case with the correct file path
+
+    @patch('your_script.pd.read_csv')
+    def test_example(self, mock_read_csv):
+        # Mock کردن DataFrame که توسط pd.read_csv بازگردانده می‌شود
+        mock_data = pd.DataFrame({
+            'Column1': [1, 2, 3],
+            'Column2': [4, 5, 6],
+        })
+        mock_read_csv.return_value = mock_data
+
         file_path = "sample_data.csv"
-        result = process_data(file_path)  # Call your function with the file_path
-        # Add a meaningful assertion for the test
-        self.assertIsNotNone(result)  # Example assertion
+        result = process_data(file_path)  # فراخوانی تابع شما با مسیر فایل
+
+        # چک کردن اینکه ستون 'Mean_Value' به درستی محاسبه شده باشد
+        expected_mean_values = pd.Series([(1 + 4) / 2, (2 + 5) / 2, (3 + 6) / 2])  # میانگین هر ردیف
+        self.assertTrue('Mean_Value' in result.columns)  # بررسی وجود ستون جدید
+        pd.testing.assert_series_equal(result['Mean_Value'], expected_mean_values)  # بررسی مقادیر
 
 if __name__ == "__main__":
     unittest.main()
