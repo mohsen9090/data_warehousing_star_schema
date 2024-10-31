@@ -1,5 +1,5 @@
-import unittest
-from unittest.mock import patch, MagicMock
+ import unittest
+from unittest.mock import patch
 import pandas as pd
 from your_script import process_data
 
@@ -14,11 +14,12 @@ class TestYourScript(unittest.TestCase):
         })
         mock_read_csv.return_value = mock_data
 
-        file_path = "sample_data.csv"
-        result = process_data(file_path)  # فراخوانی تابع شما با مسیر فایل
+        # تعریف مسیر فایل
+        file_path = "sample_data.csv"  
+        result = process_data(file_path)  # فراخوانی تابع با مسیر فایل
 
-        # چک کردن اینکه ستون 'Mean_Value' به درستی محاسبه شده باشد
-        expected_mean_values = pd.Series([(1 + 4) / 2, (2 + 5) / 2, (3 + 6) / 2])  # میانگین هر ردیف
+        # بررسی صحت محاسبه ستون 'Mean_Value'
+        expected_mean_values = pd.Series([(1 + 4) / 2, (2 + 5) / 2, (3 + 6) / 2])
         self.assertTrue('Mean_Value' in result.columns)  # بررسی وجود ستون جدید
         pd.testing.assert_series_equal(result['Mean_Value'], expected_mean_values)  # بررسی مقادیر
 
