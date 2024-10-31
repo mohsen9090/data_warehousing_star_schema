@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
 import pandas as pd
-from your_script import process_data  # Replace your_script with the actual name of your script
+from your_script import process_data  # Ensure this matches your script's filename
 
 class TestYourScript(unittest.TestCase):
 
@@ -14,17 +14,17 @@ class TestYourScript(unittest.TestCase):
         })
         mock_read_csv.return_value = mock_data
 
-        file_path = "sample_data.csv"  # Define the file_path
-        result = process_data(file_path)  # Call your function with the file_path
+        file_path = "sample_data.csv"  # This is the mock file path
+        result = process_data(file_path)  # Call your function
 
-        # Create expected Series with the correct name
+        # Create the expected Series with the correct name
         expected_mean_values = pd.Series([(1 + 4) / 2, (2 + 5) / 2, (3 + 6) / 2], name='Mean_Value')
 
-        # Check if the new column exists
-        self.assertTrue('Mean_Value' in result.columns)
+        # Check if the 'Mean_Value' column exists
+        self.assertIn('Mean_Value', result.columns)
 
-        # Check values without name check
-        pd.testing.assert_series_equal(result['Mean_Value'], expected_mean_values, check_exact=True)
+        # Assert that the 'Mean_Value' Series in the result matches the expected Series
+        pd.testing.assert_series_equal(result['Mean_Value'], expected_mean_values, check_names=True)
 
 if __name__ == "__main__":
     unittest.main()
