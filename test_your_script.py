@@ -7,21 +7,20 @@ class TestYourScript(unittest.TestCase):
     
     @patch('your_script.pd.read_csv')
     def test_example(self, mock_read_csv):
-        # Mock کردن DataFrame که توسط pd.read_csv بازگردانده می‌شود
+        # Mocking the DataFrame that would be returned by pd.read_csv
         mock_data = pd.DataFrame({
             'Column1': [1, 2, 3],
             'Column2': [4, 5, 6],
         })
         mock_read_csv.return_value = mock_data
         
-        # مسیر فایل را تعریف کنید
-        file_path = "sample_data.csv"
-        result = process_data(file_path)  # آرگومان file_path را به تابع ارسال کنید
-
-        # بررسی صحت محاسبه ستون 'Mean_Value'
-        expected_mean_values = pd.Series([(1 + 4) / 2, (2 + 5) / 2, (3 + 6) / 2])
-        self.assertTrue('Mean_Value' in result.columns)  # بررسی وجود ستون جدید
-        pd.testing.assert_series_equal(result['Mean_Value'], expected_mean_values)  # بررسی مقادیر
+        file_path = "sample_data.csv"  # Define the file_path
+        result = process_data(file_path)  # Call your function with the file_path
+        
+        # Check if the 'Mean_Value' column is calculated correctly
+        expected_mean_values = pd.Series([(1 + 4) / 2, (2 + 5) / 2, (3 + 6) / 2], name='Mean_Value')
+        self.assertTrue('Mean_Value' in result.columns)  # Check if new column exists
+        pd.testing.assert_series_equal(result['Mean_Value'], expected_mean_values, check_names=True)  # Check values
 
 if __name__ == "__main__":
     unittest.main()
