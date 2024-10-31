@@ -1,14 +1,13 @@
 import unittest
-from your_script import process_data  # Import the function from your_script.py
+from your_script import process_data
 
 class TestYourScript(unittest.TestCase):
     def test_example(self):
-        # Provide the path to your sample CSV file
-        file_path = "sample_data.csv"  # Make sure this file exists
-        result = process_data(file_path)  # Call the function with the file path
-        
-        # Example assertion to ensure the function runs correctly
-        self.assertIsNotNone(result)  # Check if the result is not None
+        # Example test case with the correct file path
+        file_path = "sample_data.csv"
+        result = process_data(file_path)  # Call your function with the file_path
+        # Add a meaningful assertion for the test
+        self.assertIsNotNone(result)  # Example assertion
 
 if __name__ == "__main__":
     unittest.main()
