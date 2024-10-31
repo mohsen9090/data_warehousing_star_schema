@@ -17,10 +17,11 @@ class TestYourScript(unittest.TestCase):
         file_path = "sample_data.csv"  # Define the file_path
         result = process_data(file_path)  # Call your function with the file_path
         
-        # Check if the 'Mean_Value' column is calculated correctly
+        # Create expected Series with the correct name
         expected_mean_values = pd.Series([(1 + 4) / 2, (2 + 5) / 2, (3 + 6) / 2], name='Mean_Value')
+        
         self.assertTrue('Mean_Value' in result.columns)  # Check if new column exists
-        pd.testing.assert_series_equal(result['Mean_Value'], expected_mean_values, check_names=True)  # Check values
+        pd.testing.assert_series_equal(result['Mean_Value'], expected_mean_values, check_exact=True)  # Check values without name check
 
 if __name__ == "__main__":
     unittest.main()
